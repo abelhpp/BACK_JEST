@@ -13,7 +13,6 @@ router.get("/users", (req, res) => {
     return res.status(200).send(users);
 });
 
-
 // Definir la ruta POST /users
 router.get("/users/:uid", (req, res) => {    
     const {uid} = req.params;
