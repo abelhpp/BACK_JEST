@@ -12,7 +12,7 @@ module.exports.addUser = ({name, address, age, uid}) => {
 
 
 module.exports.findUserByUid = ({uid}) => {
-    return users.find(({uid: userUid}) => usertUid === uid)
+    return users.find(({uid: userUid}) => userUid === uid)
 }
 
 

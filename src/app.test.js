@@ -10,6 +10,8 @@ beforeEach( ()=>{
     addUser.mockReset()
     getUsers.mockReset()
     updateUserByUid.mockReset()
+    findUserByUid.mockReset()
+    removeUserByUid.mockReset()
 } )
 
 const buildUser = ({name="facker", address= "facker 222", age=18, uid="99"} = {})=> ({
@@ -47,10 +49,10 @@ describe('users POST', () => {
         expect(result.body).toEqual([]);
     });
 
+
     it('should update an user', async () => {
         const user = buildUser();
-        addUser(user);
-        updateUserByUid.mockReset(user);
+        updateUserByUid.mockReturnValue(user);
 
         const result = await request(app)
             .put(`/users/:${user.uid}`)
@@ -59,6 +61,41 @@ describe('users POST', () => {
         expect(result.body).toEqual(user);
     })
 
+
+    it('should get an user by uid',async ()=>{
+        const user = buildUser();
+        findUserByUid.mockReturnValue(user);
+
+        const result = await request(app)
+            .get(`/users/:${user}`)
+            .send(user)
+            .expect(201);
+        expect(result.body).toEqual(user);
+
+    });
+
+    it('should get an user by uid',async ()=>{
+        const user = buildUser();
+        findUserByUid.mockReturnValue(user);
+
+        const result = await request(app)
+            .get(`/users/:${user}`)
+            .send(user)
+            .expect(201);
+        expect(result.body).toEqual(user);
+
+    });
+
+    it('should delete an user by uid', async()=>{
+        const user = buildUser();
+        removeUserByUid(user);
+        
+        const result = await request(app)
+            .delete(`/users/:${user}`)
+            .send(user)
+            .expect(200);
+        expect(result.body).toEqual({});
+    });
 
 
 });
